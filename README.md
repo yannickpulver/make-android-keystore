@@ -31,13 +31,17 @@ ln -sf "$PWD/make-android-keystore" ~/.local/bin/make-android-keystore
 make-android-keystore myapp                       # interactive account/vault picker
 make-android-keystore myapp --alias upload --out ~/keystores
 make-android-keystore myapp --vault "My Vault" --account my.1password.com
+make-android-keystore myapp --import ~/keystores/myapp.keystore   # store an existing keystore in 1P
 ```
+
+With `--import`, no keystore is generated: you're prompted for the existing keystore's password (verified via `keytool`), the key alias is auto-detected (interactive picker if the keystore has multiple keys; override with `--alias`), and the same 1Password item is created (password, alias, fingerprints, base64 field, file attachment).
 
 Options:
 
 | Flag | Default | |
 |---|---|---|
-| `--alias` | `upload` | key alias |
+| `--alias` | `upload` (auto-detected with `--import`) | key alias |
+| `--import` | off | path to an existing keystore to store in 1P |
 | `--cn` | keystore name | certificate common name |
 | `--out` | `.` | output directory |
 | `--vault` | picker | 1Password vault |
